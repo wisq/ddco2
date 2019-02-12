@@ -19,7 +19,7 @@ use Mix.Config
 # You can also configure a third-party app:
 
 config :logger, :console,
-  level: :debug,
+  level: :info,
   format: "[$level] $message\n"
 
 # It is also possible to import configuration files, relative to this
