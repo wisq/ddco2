@@ -22,3 +22,8 @@ erl_crash.dump
 # Ignore package tarball (built via "mix hex.build").
 ddco2-*.tar
 
+# Ignore real config, user must copy example.
+/config/prod.exs
+/rel/config.exs
+Makefile
+.cookie.*
