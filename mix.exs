@@ -1,4 +1,4 @@
-defmodule Ddco2.MixProject do
+defmodule DDCO2.MixProject do
   use Mix.Project
 
   def project do
@@ -14,6 +14,7 @@ defmodule Ddco2.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {DDCO2, []},
       extra_applications: [:logger]
     ]
   end
