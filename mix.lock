@@ -1,4 +1,6 @@
 %{
+  "artificery": {:hex, :artificery, "0.4.0", "e0b8d3eb9dfe8f42c08a620f90a2aa9cef5dba9fcdfcecad5c2be451df159a77", [], [], "hexpm"},
+  "distillery": {:hex, :distillery, "2.0.12", "6e78fe042df82610ac3fa50bd7d2d8190ad287d120d3cd1682d83a44e8b34dfb", [], [{:artificery, "~> 0.2", [hex: :artificery, repo: "hexpm", optional: false]}], "hexpm"},
   "elixir_make": {:hex, :elixir_make, "0.5.0", "3d65ce6d537d2ce164c0311551a607b90ea7f91d85242a67f3c5e59693c3aa50", [], [], "hexpm"},
   "ex_co2_mini": {:git, "https://github.com/wisq/ex_co2_mini.git", "3f5511a4dd43405e4c722ac8704bf691be5842e3", []},
   "statix": {:hex, :statix, "1.1.0", "af9a4586c5cd58f879e0595f06a4790878715de5b8f75f6346693aaa38da2424", [], [], "hexpm"},
