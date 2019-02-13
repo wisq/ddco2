@@ -12,11 +12,8 @@ defmodule DDCO2.Reporter do
     )
   end
 
-  # Every 15 seconds.
-  @interval 15_000
-
-  # StatsD prefix:
-  @prefix "co2mini"
+  @interval Application.get_env(:ddco2, :interval, 15_000)
+  @prefix Application.get_env(:ddco2, :prefix, "co2mini")
 
   def start_link(opts) do
     collector = Keyword.fetch!(opts, :collector)
