@@ -6,7 +6,7 @@ It acts as a very simple bridge between [ex_co2_mini](https://github.com/wisq/ex
 
 Although designed and tested on [Datadog](https://www.datadoghq.com/), in theory, it should work fine on any StatsD server.
 
-## Installation
+## Installing
 
 1. Plug in the USB device to a Linux server.
     * Other OSes are not currently supported by ExCO₂Mini.
@@ -19,7 +19,9 @@ Although designed and tested on [Datadog](https://www.datadoghq.com/), in theory
 6. Run `mix deps.get`.
 7. Run `mix compile`.
 
-Now, you have two options on how to run DDCO₂:
+## Running
+
+You have two options on how to run DDCO₂:
 
 * To get started, you can just run `mix ddco2`.  This will launch DDCO₂ right here and now, and begin logging results.
   * To exit, press control-C twice.
