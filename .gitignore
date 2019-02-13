@@ -23,7 +23,7 @@ erl_crash.dump
 ddco2-*.tar
 
 # Ignore real config, user must copy example.
-/config/prod.exs
+/config/config.exs
 /rel/config.exs
 Makefile
 .cookie.*

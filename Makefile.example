@@ -1,0 +1,15 @@
+all:
+
+local_sudo_deploy:
+	MIX_ENV=prod mix release --no-tar
+	sudo -u ddco2 rsync --delete -rt --exclude 'var/' \
+		_build/prod/rel/ddco2/ \
+		/home/ddco2/app/ddco2/
+	sudo -u ddco2 /home/ddco2/app/ddco2/bin/ddco2 deploy_restart
+
+remote_ssh_deploy:
+	MIX_ENV=prod mix release --no-tar
+	rsync --delete -rt --exclude 'var/' \
+		_build/prod/rel/ddco2/ \
+		ddco2@SOME-HOST:app/ddco2/
+	ssh ddco2@SOME-HOST app/ddco2/bin/ddco2 deploy_restart
