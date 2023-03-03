@@ -14,6 +14,7 @@ defmodule DDCO2.Reporter do
 
   @interval Application.get_env(:ddco2, :interval, 15_000)
   @prefix Application.get_env(:ddco2, :prefix, "co2mini")
+  @tags Application.get_env(:ddco2, :tags, [])
 
   def start_link(opts) do
     collector = Keyword.fetch!(opts, :collector)
@@ -47,7 +48,7 @@ defmodule DDCO2.Reporter do
   end
 
   defp gauge(value, name) do
-    gauge_key(value, with_prefix(name))
+    gauge_key(value, with_prefix(name), @tags)
   end
 
   defp with_prefix(name) do
@@ -58,8 +59,13 @@ defmodule DDCO2.Reporter do
     Logger.info("Not recorded: #{key}")
   end
 
-  defp gauge_key(value, key) do
+  defp gauge_key(value, key, []) do
     DDCO2.Statix.gauge(key, value)
     Logger.info("Recorded: #{key} = #{value}")
+  end
+
+  defp gauge_key(value, key, tags) when is_list(tags) do
+    DDCO2.Statix.gauge(key, value, tags: tags)
+    Logger.info("Recorded: #{key}#{inspect(tags)} = #{value}")
   end
 end

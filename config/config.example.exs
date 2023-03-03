@@ -6,7 +6,9 @@ config :ddco2,
   # Log data to StatsD every 15 seconds:
   interval: 15_000,
   # Use "co2mini.*" for StatsD keys:
-  prefix: "co2mini"
+  prefix: "co2mini",
+  # Add tags (optional):
+  tags: ["location:basement"]
 
 config :statix, DDCO2.Statix,
   # Host to send stats to:
