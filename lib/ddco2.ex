@@ -3,6 +3,7 @@ defmodule DDCO2 do
   use Application
 
   @children [
+    DDCO2.Datadog,
     {ExCO2Mini.Reader,
      [
        name: DDCO2.Reader,
@@ -25,7 +26,6 @@ defmodule DDCO2 do
 
   def start(_type, _args) do
     Logger.info("DDCO2 starting ...")
-    :ok = DDCO2.Statix.connect()
 
     Supervisor.start_link(
       @children,

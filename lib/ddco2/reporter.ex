@@ -3,6 +3,7 @@ defmodule DDCO2.Reporter do
   use GenServer
 
   alias ExCO2Mini.Collector
+  alias DDCO2.Datadog
 
   defmodule State do
     @enforce_keys [:log_name, :collector]
@@ -13,8 +14,6 @@ defmodule DDCO2.Reporter do
   end
 
   @interval Application.get_env(:ddco2, :interval, 15_000)
-  @prefix Application.get_env(:ddco2, :prefix, "co2mini")
-  @tags Application.get_env(:ddco2, :tags, [])
 
   def start_link(opts) do
     collector = Keyword.fetch!(opts, :collector)
@@ -40,32 +39,20 @@ defmodule DDCO2.Reporter do
 
   @impl true
   def handle_info(:timeout, state) do
-    collector = state.collector
-    Collector.temperature(collector) |> gauge("temperature")
-    Collector.co2_ppm(collector) |> gauge("co2_ppm")
+    metrics(state.collector)
+    |> Enum.filter(&record_metric?/1)
+    |> Datadog.record()
 
     {:noreply, state, @interval}
   end
 
-  defp gauge(value, name) do
-    gauge_key(value, with_prefix(name), @tags)
+  defp metrics(collector) do
+    [
+      temperature: Collector.temperature(collector),
+      co2_ppm: Collector.co2_ppm(collector)
+    ]
   end
 
-  defp with_prefix(name) do
-    @prefix <> "." <> name
-  end
-
-  defp gauge_key(nil, key) do
-    Logger.info("Not recorded: #{key}")
-  end
-
-  defp gauge_key(value, key, []) do
-    DDCO2.Statix.gauge(key, value)
-    Logger.info("Recorded: #{key} = #{value}")
-  end
-
-  defp gauge_key(value, key, tags) when is_list(tags) do
-    DDCO2.Statix.gauge(key, value, tags: tags)
-    Logger.info("Recorded: #{key}#{inspect(tags)} = #{value}")
-  end
+  defp record_metric?({_key, nil}), do: false
+  defp record_metric?({_key, _value}), do: true
 end

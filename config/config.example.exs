@@ -10,12 +10,6 @@ config :ddco2,
   # Add tags (optional):
   tags: ["location:basement"]
 
-config :statix, DDCO2.Statix,
-  # Host to send stats to:
-  host: "127.0.0.1",
-  # Port to send to:
-  port: 8125
-
 # Configure logger:
 config :logger, :console,
   # Remove debugging messages:
